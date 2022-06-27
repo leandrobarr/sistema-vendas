@@ -64,6 +64,25 @@ public class Dados {
         return false;
     }
     
+     public int getPerfil(String usuario) {
+       for(int i = 0; i < conUsu; i ++) {
+            if(msUsuarios[i].getIdUsuario().equals(usuario)) {
+                return msUsuarios[i].getPerfil();
+            }
+        }
+        return -1;
+    }
+     
+     public void trocarSenha(String usuario, String senha) {
+       for(int i = 0; i < conUsu; i ++) {
+            if(msUsuarios[i].getIdUsuario().equals(usuario)) {
+                msUsuarios[i].setSenha(senha);
+                return;
+            }
+        }
+        
+    }
+     
     public int posicaoUsuario(String usuario) {
         
         for(int i = 0; i < conUsu; i ++) {
@@ -73,6 +92,8 @@ public class Dados {
         }
         return -1;
     }
+    
+    
     
      public int posicaoProduto(String produto) {
         

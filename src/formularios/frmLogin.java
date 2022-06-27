@@ -163,6 +163,9 @@ public class frmLogin extends javax.swing.JFrame {
       frmPrincipal mPrincipal = new frmPrincipal();
       this.setVisible(false);
       mPrincipal.setDados(msDados);
+      mPrincipal.setPerfil(msDados.getPerfil(txtUsuario.getText()));
+      mPrincipal.setSenha(new String(txtSenha.getPassword()));
+      mPrincipal.setUsuario(txtUsuario.getText());
       mPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
       mPrincipal.setVisible(true);
     }//GEN-LAST:event_btnEntrarActionPerformed

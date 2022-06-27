@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package formularios;
 
 import classes.BackGround;
@@ -14,11 +10,25 @@ import classes.Dados;
  */
 public class frmPrincipal extends javax.swing.JFrame {
     private Dados msDados;
+    private int perfil;
+    private String senha;
+    private String usuario;
+    
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+    
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
     
     public void setDados(Dados msDados) {
         this.msDados = msDados;
     }
    
+    public void setPerfil(int perfil) {
+        this.perfil = perfil;
+    }
     public frmPrincipal() {
         initComponents();
     }
@@ -109,6 +119,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuArquivoTrocarSenha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         mnuArquivoTrocarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/trocar_senha.png"))); // NOI18N
         mnuArquivoTrocarSenha.setText("Trocar Senha");
+        mnuArquivoTrocarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuArquivoTrocarSenhaActionPerformed(evt);
+            }
+        });
         mnuArquivo.add(mnuArquivoTrocarSenha);
 
         mnuArquivoTrocarUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -190,7 +205,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuArquivoProdutosActionPerformed
 
     private void mnuArquivoTrocarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArquivoTrocarUsuarioActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        frmLogin mLogin = new frmLogin();
+        mLogin.setDados(msDados);
+        mLogin.setLocationRelativeTo(null);
+        mLogin.setVisible(true);
     }//GEN-LAST:event_mnuArquivoTrocarUsuarioActionPerformed
 
     private void mnuArquivoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArquivoSairActionPerformed
@@ -214,7 +233,22 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         ((BackGround)dpnDesktop).setImagem("/images/background.jpg");
+        
+        if (perfil == 2) {
+            mnuArquivoClientes.setEnabled(false);
+            mnuArquivoProdutos.setEnabled(false);
+            mnuArquivoUsuarios.setEnabled(false);
+            mnuMovimentoRelatorioVenda.setEnabled(false);
+        }
     }//GEN-LAST:event_formWindowOpened
+
+    private void mnuArquivoTrocarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuArquivoTrocarSenhaActionPerformed
+        frmTrocarSenha msSenha = new frmTrocarSenha(this, rootPaneCheckingEnabled);
+        msSenha.setLocationRelativeTo(null);
+        msSenha.setSenha(senha);
+        msSenha.setUsuario(usuario);
+        msSenha.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_mnuArquivoTrocarSenhaActionPerformed
 
     
     public static void main(String args[]) {
