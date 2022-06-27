@@ -27,6 +27,11 @@ public class Utilidades {
         }
         return  x;
     }
+    
+    public static String formatDate(Date Data) {
+        SimpleDateFormat formatoTexto = new SimpleDateFormat("YYYY/MM/dd");
+        return formatoTexto.format(Data);
+    }
 }
 
 

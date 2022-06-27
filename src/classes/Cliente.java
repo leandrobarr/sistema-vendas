@@ -120,8 +120,8 @@ public class Cliente {
             + Telefone +"|"
             + idIdentificacao +"|"
             + Cidade +"|"
-            + Nascimento +"|"   
-            + Data;
+            + Utilidades.formatDate(Nascimento) +"|"   
+            + Utilidades.formatDate(Data);
         
     }
     

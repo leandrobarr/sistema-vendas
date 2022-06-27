@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.Date;
 
 public class Dados {
     private int maxUsu = 50;
@@ -19,56 +20,12 @@ public class Dados {
     private int conCli = 0;
     
     public Dados() {
-        Usuario msUsuario;
-        msUsuario = new Usuario("san1", "san1", "san2", "123", 1);
-        msUsuarios[conUsu] = msUsuario;
-        conUsu ++;
+        preencherUsuarios();
         
-        msUsuario = new Usuario("san2", "san1", "san2", "123", 2);
-        msUsuarios[conUsu] = msUsuario;
-        conUsu ++;
+        preencherProdutos();
         
-        msUsuario = new Usuario("san3", "san1", "san2", "123", 1);
-        msUsuarios[conUsu] = msUsuario;
-        conUsu ++;
+        preencherClientes();
         
-        Produto msProduto;
-        msProduto = new Produto ("1", "Arroz", 23, 0, "Arroz branco tipo 1");
-        msProdutos[conPro]= msProduto;
-        conPro++;
-        
-        msProduto = new Produto ("2", "Feijao", 9, 0, "Feijao manteiga");
-        msProdutos[conPro]= msProduto;
-        conPro++;
-        
-        msProduto = new Produto ("3", "oleo", 11, 0, "oleo refinado de soja");
-        msProdutos[conPro]= msProduto;
-        conPro++;
-        
-        Cliente msCliente;
-        msCliente = new Cliente ("1", "Leandro", "Barros", "opala990@gmail.com",
-                "Estrada do Engenho Novo, 31 casa 2 Realengo", 
-                "(21)98870-9057", 1, "Rio de Janeiro", 
-                Utilidades.StringtoDate("1978/05/13"), 
-                Utilidades.StringtoDate("2022/06/24"));
-        msClientes[conCli]= msCliente;
-        conCli++;
-        
-        msCliente = new Cliente ("2", "Monique Cristina", "Nunes dos Santos", "moniquecnsantos@hotmail.com",
-                "Estrada do Engenho Novo, 31 casa 2 Realengo", 
-                "(21)98892-6469", 3, "Nilópolis", 
-                Utilidades.StringtoDate("1973/08/27"), 
-                Utilidades.StringtoDate("2022/06/20"));
-        msClientes[conCli]= msCliente;
-        conCli++;
-        
-        msCliente = new Cliente ("3", "Gabriel", "Nunes de Barros", "gabrielbarros.judo@gmail.com",
-                "Rua Elza Gomes, 44", 
-                "(21)98870-9057", 2, "Rio de Janeiro", 
-                Utilidades.StringtoDate("2010/07/05"), 
-                Utilidades.StringtoDate("2022/06/02"));
-        msClientes[conCli]= msCliente;
-        conCli++;
     }
     
     public int numeroUsuarios() {
@@ -301,5 +258,232 @@ public class Dados {
         File arquivo = null;
         FileReader fr = null;
         BufferedReader br = null;
+        
+        try {
+            arquivo = new File("Data/usuarios.txt");
+            fr = new FileReader(arquivo);
+            br = new BufferedReader(fr);
+            
+            int pos;
+            String aux;
+            String linha;
+            String idUsuario;
+            String nome;
+            String sobrenome;
+            String senha;
+            int perfil;
+            
+            while((linha = br.readLine())!= null) {
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                idUsuario = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                nome = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                sobrenome = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                senha = aux;
+                linha = linha.substring(pos + 1);
+                perfil = new Integer(linha);
+                
+                Usuario msUsuario = new Usuario(
+                        idUsuario, 
+                        nome, 
+                        sobrenome, 
+                        senha, 
+                        perfil);
+                msUsuarios[conUsu]= msUsuario;
+                conUsu++;
+            }            
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }finally {
+            try {
+                if (fr != null) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
     }
+    
+    public void preencherProdutos() {
+        File arquivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        
+        try {
+            arquivo = new File("Data/produtos.txt");
+            fr = new FileReader(arquivo);
+            br = new BufferedReader(fr);
+            
+            int pos;
+            String aux;
+            String linha;
+            String idProduto;
+            String descricao;
+            int preco;
+            int imposto;
+            String anotacao;
+            
+            while((linha = br.readLine())!= null) {
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                idProduto = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                descricao = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                preco = new Integer(aux);
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                imposto = new Integer(aux);
+                linha = linha.substring(pos + 1);
+                
+                anotacao = linha;
+                
+                Produto msProduto = new Produto(
+                        idProduto, 
+                        descricao, 
+                        preco, 
+                        imposto, 
+                        anotacao);
+                msProdutos[conPro]= msProduto;
+                conPro++;
+            }            
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }finally {
+            try {
+                if (fr != null) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+    }
+    
+    public void preencherClientes() {
+        File arquivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        
+        try {
+            arquivo = new File("Data/clientes.txt");
+            fr = new FileReader(arquivo);
+            br = new BufferedReader(fr);
+            
+            int pos;
+            String aux;
+            String linha;
+            String idCliente;
+            String Nome;
+            String Sobrenome;
+            String Email;
+            String Endereco;
+            String Telefone;
+            int idIdentificacao;
+            String Cidade;
+            Date Nascimento;
+            Date Data;
+            
+            
+            while((linha = br.readLine())!= null) {
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                idCliente = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                Nome = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                Sobrenome = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                Email = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                Endereco = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                Telefone = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                idIdentificacao = new Integer(aux);
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                Cidade = aux;
+                linha = linha.substring(pos + 1);
+                
+                pos = linha.indexOf('|');
+                aux = linha.substring(0, pos);
+                Nascimento = Utilidades.StringtoDate(aux);
+                linha = linha.substring(pos + 1);
+                
+                Data = Utilidades.StringtoDate(linha);
+                
+                Cliente msCliente = new Cliente(
+                        idCliente, 
+                        Nome, 
+                        Sobrenome, 
+                        Email,
+                        Endereco,
+                        Telefone,
+                        idIdentificacao,
+                        Cidade,
+                        Nascimento,
+                        Data);
+                        
+                msClientes[conCli]= msCliente;
+                conCli++;
+            }            
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }finally {
+            try {
+                if (fr != null) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+    }
+    
+    
 }
