@@ -1,0 +1,4 @@
+1|Arroz|23|0|Arroz branco tipo 1
+2|Feijao|9|0|Feijao manteiga
+3|oleo|11|0|oleo refinado de soja
+4|Farinha de trigo|6|2|Farinha tipo especial
