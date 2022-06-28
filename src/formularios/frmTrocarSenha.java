@@ -1,16 +1,19 @@
 
 package formularios;
 
+import classes.Dados;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Leandro
- */
+
 public class frmTrocarSenha extends javax.swing.JDialog { 
     
     private String senha;
     private String usuario;
+     private Dados msDados;
+    
+    public void setDados(Dados msDados) {
+        this.msDados = msDados;
+    }
     
     public void setUsuario(String usuario) {
         this.usuario = usuario;
@@ -148,7 +151,7 @@ public class frmTrocarSenha extends javax.swing.JDialog {
                         .addGap(4, 4, 4)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
@@ -170,6 +173,7 @@ public class frmTrocarSenha extends javax.swing.JDialog {
          
          if (!atual.equals(senha)) {
              JOptionPane.showMessageDialog(rootPane, "A SENHA NÃO CORRESPONDE COM A SENHA DO USUÁRIO");
+             txtAtual.setText("");
              txtAtual.requestFocusInWindow();
              return;
         }
@@ -191,9 +195,16 @@ public class frmTrocarSenha extends javax.swing.JDialog {
                      rootPane, 
                      "A SENHA NOVA E A DE CONFIRMAÇÃO NÃO SÃO IGUAIS,"
                              + " FAVOR REPETIR PROCEDIMENTO");
-             txtNova.requestFocusInWindow();
+             txtAtual.setText("");
+             txtNova.setText("");
+             txtConfirmacao.setText("");
+             txtAtual.requestFocusInWindow();
              return;
         }
+        
+        msDados.trocarSenha(usuario, nova);
+        JOptionPane.showMessageDialog(rootPane, "SENHA TROCADA COM SUCESSO");
+        this.dispose();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void txtNovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNovaActionPerformed

@@ -9,10 +9,15 @@ import classes.Dados;
  * @author Leandro
  */
 public class frmPrincipal extends javax.swing.JFrame {
-    private Dados msDados;
+    
     private int perfil;
     private String senha;
     private String usuario;
+    private Dados msDados;
+    
+    public void setDados(Dados msDados) {
+        this.msDados = msDados;
+    }
     
     public void setUsuario(String usuario) {
         this.usuario = usuario;
@@ -22,10 +27,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         this.senha = senha;
     }
     
-    public void setDados(Dados msDados) {
-        this.msDados = msDados;
-    }
-   
     public void setPerfil(int perfil) {
         this.perfil = perfil;
     }
@@ -81,6 +82,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGap(0, 425, Short.MAX_VALUE)
         );
 
+        mnuArquivo.setForeground(new java.awt.Color(51, 51, 255));
         mnuArquivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/arquivo.png"))); // NOI18N
         mnuArquivo.setText("Arquivos");
         mnuArquivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -149,6 +151,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuArquivo);
 
+        mnuMovimento.setForeground(new java.awt.Color(51, 51, 255));
         mnuMovimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/relatorio.png"))); // NOI18N
         mnuMovimento.setText("Movimentos");
         mnuMovimento.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -156,6 +159,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuMovimentoNovaVenda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         mnuMovimentoNovaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Nova_Venda.png"))); // NOI18N
         mnuMovimentoNovaVenda.setText("Nova Venda");
+        mnuMovimentoNovaVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMovimentoNovaVendaActionPerformed(evt);
+            }
+        });
         mnuMovimento.add(mnuMovimentoNovaVenda);
 
         mnuMovimentoRelatorioVenda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -165,6 +173,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuMovimento);
 
+        mnuAjuda.setForeground(new java.awt.Color(51, 51, 255));
         mnuAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ajuda1.png"))); // NOI18N
         mnuAjuda.setText("Ajuda");
         mnuAjuda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -172,11 +181,21 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sobre.png"))); // NOI18N
         jMenuItem1.setText("Sobre");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         mnuAjuda.add(jMenuItem1);
 
         jMenuItem2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ajuda.png"))); // NOI18N
         jMenuItem2.setText("Dúvidas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         mnuAjuda.add(jMenuItem2);
 
         jMenuBar1.add(mnuAjuda);
@@ -247,8 +266,28 @@ public class frmPrincipal extends javax.swing.JFrame {
         msSenha.setLocationRelativeTo(null);
         msSenha.setSenha(senha);
         msSenha.setUsuario(usuario);
+        msSenha.setDados(msDados);
         msSenha.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_mnuArquivoTrocarSenhaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        frmSobre msSobre = new frmSobre(this, rootPaneCheckingEnabled);
+        msSobre.setLocationRelativeTo(this);
+        msSobre.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        frmDuvidas msDuvidas = new frmDuvidas(this, rootPaneCheckingEnabled);
+        msDuvidas.setLocationRelativeTo(this);
+        msDuvidas.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void mnuMovimentoNovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMovimentoNovaVendaActionPerformed
+        frmFatura msFatura = new frmFatura();
+        msFatura.setDados(msDados);
+        dpnDesktop.add(msFatura);
+        msFatura.show();
+    }//GEN-LAST:event_mnuMovimentoNovaVendaActionPerformed
 
     
     public static void main(String args[]) {
